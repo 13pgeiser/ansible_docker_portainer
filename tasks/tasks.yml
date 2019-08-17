@@ -1,0 +1,15 @@
+---
+
+- name: Setup Portainer
+  docker_container:
+    name: portainer
+    image: "portainer/portainer:{{ docker_portainer_version  | default('1.22.0') }}"
+    ports:
+    - "9000:9000"
+    restart_policy: on-failure
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - portainer_data:/data
+    network_mode: 'host'
+    purge_networks: yes
+
